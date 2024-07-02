@@ -29,6 +29,7 @@ const MeetingTypeList = () => {
   const client = useStreamVideoClient();
   const { user } = useUser();
   const { toast } = useToast();
+  const lenBaseUrl = process.env.NEXT_PUBLIC_BASE_URL?.length || 0 ; 
 
   const createMeeting = async () => {
     if (!client || !user) return;
@@ -74,7 +75,7 @@ const MeetingTypeList = () => {
         img="/icons/add-meeting.svg"
         title="New Meeting"
         description="Start an instant meeting"
-        handleClick={() => setMeetingState('isInstantMeeting')} className='bg-orange-1'      />
+        handleClick={() => setMeetingState('isInstantMeeting')} className='bg-orange-1' />
       <HomeCard
         img="/icons/join-meeting.svg"
         title="Join Meeting"
@@ -137,9 +138,9 @@ const MeetingTypeList = () => {
           onClose={() => setMeetingState(undefined)}
           title="Meeting Created"
           handleClick={() => {
-            navigator.clipboard.writeText(meetingLink);
+            navigator.clipboard.writeText(meetingLink.substring(lenBaseUrl));
             toast({ title: 'Link Copied' });
-          }} 
+          }}
           image={'/icons/checked.svg'}
           buttonIcon="/icons/copy.svg"
           className="text-center"
